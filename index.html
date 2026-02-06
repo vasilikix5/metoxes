@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Finance App</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; text-align: center; }
+        .ticker { display: inline-block; margin: 20px; padding: 20px; border: 1px solid #333; border-radius: 10px; }
+        .price { font-size: 24px; color: #00ff00; }
+    </style>
+</head>
+<body>
+    <h1>Market Overview</h1>
+    <div id="dashboard">Loading data...</div>
+
+    <script>
+        async function loadData() {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            let html = '';
+            for (let symbol in data) {
+                html += `<div class="ticker">
+                            <h3>${symbol}</h3>
+                            <p class="price">$${data[symbol]}</p>
+                         </div>`;
+            }
+            document.getElementById('dashboard').innerHTML = html;
+        }
+        loadData();
+    </script>
+</body>
+</html>
